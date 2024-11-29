@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Ch14: Exception Handling &mdash; COMP2001</title>
+
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <link rel="stylesheet" href="../../css/alabaster.css" type="text/css">
+    <link rel="stylesheet" href="../../css/alabaster-overrides.css" type="text/css">
+
+    
+      <link href="../../css/custom.css" rel="stylesheet">
+    
+
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+      <script src="../../search/main.js"></script>
+    
+
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+    
+  
+</head>
+<body>
+
+  <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+            <h1 id="ch14-exception-handling">Ch14: Exception Handling</h1>
+<h3 id="custom-exception-exercise-bank-account-system">Custom Exception Exercise: Bank Account System</h3>
+<h4 id="question"><strong>Question:</strong></h4>
+<p>Create a program that models a <strong>Bank Account System</strong>. Implement the following:</p>
+<ol>
+<li>
+<p><strong>Custom Exception</strong>: Create a custom exception class called <code>InsufficientFundsException</code> that inherits from <code>Exception</code>. This exception should:</p>
+<ul>
+<li>Have a constructor that accepts a message string and passes it to the superclass.</li>
+</ul>
+</li>
+<li>
+<p><strong>BankAccount Class</strong>: Implement a <code>BankAccount</code> class that:</p>
+<ul>
+<li>Has attributes for <code>accountHolderName</code> (String), <code>accountNumber</code> (String), and <code>balance</code> (double).</li>
+<li>Implements a method <code>withdraw(double amount)</code> that:<ul>
+<li>Throws <code>InsufficientFundsException</code> if the <code>amount</code> is greater than the <code>balance</code>.</li>
+<li>Deducts the <code>amount</code> from the <code>balance</code> otherwise.</li>
+</ul>
+</li>
+<li>Implements a method <code>deposit(double amount)</code> to add the <code>amount</code> to the <code>balance</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>BankApp Class</strong>:</p>
+<ul>
+<li>Create a <code>BankApp</code> class with a <code>main</code> method.</li>
+<li>Use a <code>try-catch</code> block to handle <code>InsufficientFundsException</code> when calling the <code>withdraw</code> method.</li>
+<li>Test the program by:<ul>
+<li>Creating a <code>BankAccount</code> object.</li>
+<li>Depositing an initial amount.</li>
+<li>Attempting to withdraw an amount larger than the balance to trigger the custom exception.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="custom-exception-exercise-online-shopping-cart">Custom Exception Exercise: Online Shopping Cart</h3>
+<ol>
+<li>
+<p><strong>Custom Exception</strong>: Create a custom exception class called <code>ProductOutOfStockException</code> that inherits from <code>Exception</code>. This exception should:</p>
+<ul>
+<li>Have a constructor that accepts a message string and passes it to the superclass.</li>
+</ul>
+</li>
+<li>
+<p><strong>Product Class</strong>: Implement a <code>Product</code> class that:</p>
+<ul>
+<li>Has attributes for <code>productName</code> (String), <code>productID</code> (String), <code>stock</code> (int), and <code>price</code> (double).</li>
+<li>Implements a method <code>purchase(int quantity)</code> that:<ul>
+<li>Throws <code>ProductOutOfStockException</code> if the requested <code>quantity</code> is greater than <code>stock</code>.</li>
+<li>Deducts the <code>quantity</code> from the <code>stock</code> otherwise.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>ShoppingCartApp Class</strong>:</p>
+<ul>
+<li>Create a <code>ShoppingCartApp</code> class with a <code>main</code> method.</li>
+<li>Use a <code>try-catch</code> block to handle <code>ProductOutOfStockException</code> when calling the <code>purchase</code> method.</li>
+<li>Test the program by:<ul>
+<li>Creating a <code>Product</code> object.</li>
+<li>Attempting to purchase a quantity greater than the available stock to trigger the custom exception.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="miscellaneous-questions-on-exception-handling">Miscellaneous questions on exception handling</h2>
+<h4 id="instructions">Instructions</h4>
+<p>Implement the following functions with exception handling as specified. Each function must meet the outlined requirements and pass the provided test cases. <strong>Use <code>throw</code> statements to handle error conditions appropriately.</strong> </p>
+<hr />
+<h3 id="1-quadratic-equation-solver">1. <strong>Quadratic Equation Solver</strong></h3>
+<ul>
+<li><strong>Function</strong>: <code>double[] solveQuadraticEquation(double a, double b, double c)</code></li>
+<li><strong>Requirements</strong>:</li>
+<li>Calculate the real roots of <script type="math/tex"> ax^2 + bx + c = 0 </script>.</li>
+<li>Return an array of roots (2 roots if the discriminant is positive, 1 if zero).</li>
+<li>Throw <code>ArithmeticException</code> if there are no real roots (discriminant &lt; 0), with message <code>"No real roots"</code>.</li>
+<li>Throw <code>IllegalArgumentException</code> if <code>a</code> is zero, with message <code>"Coefficient 'a' cannot be zero"</code>.</li>
+</ul>
+<h4 id="test-cases">Test Cases</h4>
+<ul>
+<li><code>solveQuadraticEquation(1, -3, 2)</code> → <code>[2.0, 1.0]</code></li>
+<li><code>solveQuadraticEquation(1, -2, 1)</code> → <code>[1.0]</code></li>
+<li><code>solveQuadraticEquation(1, 0, 1)</code> → throws <code>ArithmeticException</code> ("No real roots")</li>
+<li><code>solveQuadraticEquation(0, 3, 2)</code> → throws <code>IllegalArgumentException</code> ("Coefficient 'a' cannot be zero")</li>
+</ul>
+<hr />
+<h3 id="2-isbn-validator-and-converter">2. <strong>ISBN Validator and Converter</strong></h3>
+<ul>
+<li><strong>Function</strong>: <code>String convertToISBN13(String isbn10)</code></li>
+<li><strong>Requirements</strong>:</li>
+<li>Convert a valid 10-digit ISBN to a 13-digit ISBN.</li>
+<li>Throw <code>IllegalArgumentException</code> if <code>isbn10</code> is not exactly 10 characters or contains invalid characters, with message <code>"Invalid ISBN-10 length"</code> or <code>"ISBN-10 must be numeric or end with 'X'"</code>.</li>
+<li>Throw <code>IllegalArgumentException</code> if the ISBN-10 checksum is invalid, with message <code>"Invalid ISBN-10 checksum"</code>.</li>
+</ul>
+<h4 id="test-cases_1">Test Cases</h4>
+<ul>
+<li><code>convertToISBN13("0306406152")</code> → <code>"9780306406157"</code></li>
+<li><code>convertToISBN13("12345")</code> → throws <code>IllegalArgumentException</code> ("Invalid ISBN-10 length")</li>
+<li><code>convertToISBN13("03064A6152")</code> → throws <code>IllegalArgumentException</code> ("ISBN-10 must be numeric or end with 'X'")</li>
+<li><code>convertToISBN13("0306406151")</code> → throws <code>IllegalArgumentException</code> ("Invalid ISBN-10 checksum")</li>
+</ul>
+<hr />
+<h3 id="3-date-validator-and-parser">3. <strong>Date Validator and Parser</strong></h3>
+<ul>
+<li><strong>Function</strong>: <code>LocalDate parseDate(String dateString)</code></li>
+<li><strong>Requirements</strong>:</li>
+<li>Parse <code>dateString</code> in "dd-mm-yyyy" format and return as <code>LocalDate</code>.</li>
+<li>Throw <code>IllegalArgumentException</code> if the format is incorrect, with message <code>"Invalid date format"</code>.</li>
+<li>Throw <code>DateTimeException</code> if the date is invalid (e.g., February 30), with message <code>"Invalid date value"</code>.</li>
+</ul>
+<h4 id="test-cases_2">Test Cases</h4>
+<ul>
+<li><code>parseDate("15-01-2023")</code> → <code>LocalDate.of(2023, 1, 15)</code></li>
+<li><code>parseDate("2023-01-15")</code> → throws <code>IllegalArgumentException</code> ("Invalid date format")</li>
+<li><code>parseDate("32-01-2023")</code> → throws <code>DateTimeException</code> ("Invalid date value")</li>
+<li><code>parseDate("29-02-2021")</code> → throws <code>DateTimeException</code> ("Invalid date value")</li>
+</ul>
+<hr />
+<h3 id="4-matrix-multiplication-validator">4. <strong>Matrix Multiplication Validator</strong></h3>
+<ul>
+<li><strong>Function</strong>: <code>int[][] multiplyMatrices(int[][] matrixA, int[][] matrixB)</code></li>
+<li><strong>Requirements</strong>:</li>
+<li>Multiply <code>matrixA</code> and <code>matrixB</code> if dimensions are compatible.</li>
+<li>Throw <code>IllegalArgumentException</code> if matrix dimensions are incompatible, with message <code>"Incompatible matrices for multiplication"</code>.</li>
+<li>Throw <code>IllegalArgumentException</code> if matrices are empty, with message <code>"Matrices must not be empty"</code>.</li>
+</ul>
+<h4 id="test-cases_3">Test Cases</h4>
+<ul>
+<li><code>multiplyMatrices({{1, 2}, {3, 4}}, {{5, 6}, {7, 8}})</code> → <code>{{19, 22}, {43, 50}}</code></li>
+<li><code>multiplyMatrices({{1, 2}, {3, 4}}, {{5, 6, 7}})</code> → throws <code>IllegalArgumentException</code> ("Incompatible matrices for multiplication")</li>
+<li><code>multiplyMatrices({{}}, {{}})</code> → throws <code>IllegalArgumentException</code> ("Matrices must not be empty")</li>
+</ul>
+<hr />
+<h3 id="5-file-reader-with-custom-parsing-rules">5. <strong>File Reader with Custom Parsing Rules</strong></h3>
+<ul>
+<li><strong>Function</strong>: <code>Map&lt;String, String&gt; parseConfigFile(String filePath)</code></li>
+<li><strong>Requirements</strong>:</li>
+<li>Read configuration file (<code>filePath</code>) with "key=value" format per line.</li>
+<li>Throw <code>ParseException</code> if any line does not contain exactly one <code>=</code> symbol, with message <code>"Line X: Invalid format"</code> (replace X with line number).</li>
+<li>Throw <code>IOException</code> if file is inaccessible, with message <code>"File cannot be accessed"</code>.</li>
+<li>Throw <code>ParseException</code> if a key or value is blank, with message <code>"Line X: Key or value cannot be blank"</code>.</li>
+</ul>
+<h4 id="test-cases_4">Test Cases</h4>
+<ul>
+<li>
+<p>Valid file with content:
+  <code>key1=value1
+  key2=value2</code>
+  Result: <code>{ "key1" -&gt; "value1", "key2" -&gt; "value2" }</code></p>
+</li>
+<li>
+<p>File with line <code>key=</code> → throws <code>ParseException</code> ("Line 2: Key or value cannot be blank")</p>
+</li>
+<li>File with line <code>key1=value1=value2</code> → throws <code>ParseException</code> ("Line 1: Invalid format")</li>
+<li>Non-existent file path → throws <code>IOException</code> ("File cannot be accessed")</li>
+</ul>
+<hr />
+<p><strong>Note</strong>: Make sure your code passes all test cases by handling exceptions properly. Each function should meet the requirements precisely as described.</p>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebarwrapper">
+        
+          
+            
+  <h1 class="logo"><a href="../..">COMP2001</a></h1>
+
+
+
+          
+            
+
+
+
+<h3>Table Of Contents</h3>
+
+<nav>
+  
+  
+    <ul>
+    
+      <li><a href="#custom-exception-exercise-bank-account-system">Custom Exception Exercise: Bank Account System</a></li>
+      <ul>
+    
+      <li><a href="#question">Question:</a></li>
+      <ul>
+    
+  </ul>
+    
+  </ul>
+    
+      <li><a href="#custom-exception-exercise-online-shopping-cart">Custom Exception Exercise: Online Shopping Cart</a></li>
+      <ul>
+    
+  </ul>
+    
+      <li><a href="#miscellaneous-questions-on-exception-handling">Miscellaneous questions on exception handling</a></li>
+      <ul>
+    
+      <li><a href="#instructions">Instructions</a></li>
+      <ul>
+    
+  </ul>
+    
+      <li><a href="#1-quadratic-equation-solver">1. Quadratic Equation Solver</a></li>
+      <ul>
+    
+      <li><a href="#test-cases">Test Cases</a></li>
+      <ul>
+    
+  </ul>
+    
+  </ul>
+    
+      <li><a href="#2-isbn-validator-and-converter">2. ISBN Validator and Converter</a></li>
+      <ul>
+    
+      <li><a href="#test-cases_1">Test Cases</a></li>
+      <ul>
+    
+  </ul>
+    
+  </ul>
+    
+      <li><a href="#3-date-validator-and-parser">3. Date Validator and Parser</a></li>
+      <ul>
+    
+      <li><a href="#test-cases_2">Test Cases</a></li>
+      <ul>
+    
+  </ul>
+    
+  </ul>
+    
+      <li><a href="#4-matrix-multiplication-validator">4. Matrix Multiplication Validator</a></li>
+      <ul>
+    
+      <li><a href="#test-cases_3">Test Cases</a></li>
+      <ul>
+    
+  </ul>
+    
+  </ul>
+    
+      <li><a href="#5-file-reader-with-custom-parsing-rules">5. File Reader with Custom Parsing Rules</a></li>
+      <ul>
+    
+      <li><a href="#test-cases_4">Test Cases</a></li>
+      <ul>
+    
+  </ul>
+    
+  </ul>
+    
+  </ul>
+    
+  </ul>
+  
+
+  
+</nav>
+          
+            
+  <h3>Related Topics</h3>
+  <ul>
+    
+      <li>Previous: <a href="../Ch13/" title="previous chapter">
+        Ch13: GUI
+      </a></li>
+    
+    
+  </ul>
+
+          
+            <div id="searchbox" style="display: none;" role="search">
+  <h3>Quick search</h3>
+  <form class="search" action="../../search.html" method="get">
+    <input name="q" type="text">
+    <input value="Go" type="submit">
+  </form>
+  <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+  </p>
+</div>
+<script type="text/javascript">
+  document.getElementById("searchbox").style.display = "block";
+</script>
+          
+        
+      </div>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+  
+    <div class="footer">
+      
+      
+        
+        Powered by <a href="http://www.mkdocs.org">mkdocs 1.6.1</a>
+        &amp; <a href="https://github.com/iamale/mkdocs-alabaster">mkdocs-alabaster</a>
+      
+    </div>
+  
+
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2024-11-29 02:32:04.591031+00:00
+  -->
+</body>
+</html>
